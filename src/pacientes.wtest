@@ -1,0 +1,148 @@
+import pacientes.*
+import aparatos.*
+describe "leonardo"{
+		const leonardo = new Paciente(edad = 40, dolor = 10, fortaleza = 20)
+		const bicicleta = new Bicicleta()
+		const magneto = new Magneto()
+		const minitramp = new Minitramp()
+		
+		method initialize(){
+			leonardo.asignarAparatoALaRutina([bicicleta,minitramp,bicicleta,magneto])
+		}
+		
+		test "puede usar la bici"{
+			assert.that(bicicleta.puedeSerUsadoPor(leonardo))
+		}
+		test "puede usar el magneto"{
+			assert.that(magneto.puedeSerUsadoPor(leonardo))
+		}
+		test "puede usar el minitramp"{
+			assert.that(minitramp.puedeSerUsadoPor(leonardo))
+		}
+		
+		test "el dolor baja a 9 al usar el magneto"{
+		leonardo.usarAparato(magneto)
+		assert.equals(leonardo.dolor(), 9)
+	}
+		test "el dolor baja a 6 al usar la bici"{
+		leonardo.usarAparato(bicicleta)
+		assert.equals(leonardo.dolor(), 6)
+	}
+	
+		test "la fortaleza sube a 23 al usar la bici"{
+		leonardo.usarAparato(bicicleta)
+		assert.equals(leonardo.fortaleza(), 23)
+	}
+	
+		test "la fortaleza sube a 24 al usar el minitramp"{
+		leonardo.usarAparato(minitramp)
+		assert.equals(leonardo.fortaleza(), 24)
+	}
+	
+	test "puede hacer la rutina"{
+		assert.that(leonardo.puedeHacerRutina())
+	}
+	
+	test "con la rutina el dolor baja a 1.8"{
+		leonardo.hacerRutina()
+		assert.equals(leonardo.dolor(), 1.8)
+	}
+	test "con la rutina el fortaleza sube a 30"{
+		leonardo.hacerRutina()
+		assert.equals(leonardo.fortaleza(), 30)
+	}
+}
+
+describe "milena"{
+	const milena = new Paciente(edad = 3, dolor = 30, fortaleza = 50)
+	const bicicleta = new Bicicleta()
+	const magneto = new Magneto()
+	const minitramp = new Minitramp()
+	method initialize(){
+			milena.asignarAparatoALaRutina([magneto, bicicleta])
+		}
+	
+	test "no puede usar la bici"{
+			assert.notThat(bicicleta.puedeSerUsadoPor(milena))
+		}
+	test "puede usar el magneto"{
+			assert.that(magneto.puedeSerUsadoPor(milena))
+		}
+	test "no puede usar el minitramp"{
+			assert.notThat(minitramp.puedeSerUsadoPor(milena))
+		}
+		
+	test "el dolor baja a 27 al usar el magneto"{
+		milena.usarAparato(magneto)
+		assert.equals(milena.dolor(), 27)
+	}
+	
+	test "no puede hacer la rutina"{
+		assert.notThat(milena.puedeHacerRutina())
+	}
+}
+
+describe "test parte 3"{
+	const nicolas = new Resistente(edad = 40, dolor = 10, fortaleza = 20)
+	const victoria = new Caprichoso(edad = 30, dolor = 10, fortaleza = 40)
+	const julian = new Caprichoso(edad = 20, dolor = 54, fortaleza = 50)
+	const zoe = new RecuperacionRapida(edad = 50, dolor = 14, fortaleza = 40)
+	const bicicleta = new Bicicleta()
+	const biciRoja = new Bicicleta(color = "rojo")
+	const magneto = new Magneto()
+	const magnetoVerde = new Magneto(color = "verde")
+	const minitramp = new Minitramp()
+	method initialize(){
+		nicolas.asignarAparatoALaRutina([bicicleta, minitramp, bicicleta, magneto])
+		zoe.asignarAparatoALaRutina([bicicleta, minitramp, bicicleta, magneto])
+		victoria.asignarAparatoALaRutina([bicicleta, minitramp, bicicleta, magneto])
+		julian.asignarAparatoALaRutina([biciRoja, magnetoVerde, bicicleta])
+		nivelRecuperacion.valor(2)
+	}
+	
+	test "victoria no puede hacer la rutina" {
+		assert.notThat(victoria.puedeHacerRutina())
+	}
+	
+	test "nicolas post rutina, dolor 1.8"{
+		nicolas.hacerRutina()
+		assert.equals(nicolas.dolor(), 1.8)
+	}
+	test "nicolas post rutina, fortaleza 34"{
+		nicolas.hacerRutina()
+		assert.equals(nicolas.fortaleza(), 34)
+	}
+	test "nicolas puede hacer la rutina"{
+		assert.that(nicolas.puedeHacerRutina())
+	}
+	test "zoe puede hacer la rutina"{
+		assert.that(zoe.puedeHacerRutina())
+	}
+	
+	test "zoe post rutina, dolor 3.4"{
+		zoe.hacerRutina()
+		assert.equals(zoe.dolor(), 3.4)
+	}
+	
+	test "zoe post rutina, fortaleza 51"{
+		zoe.hacerRutina()
+		assert.equals(zoe.fortaleza(), 51)
+	}
+	
+	test "julian puede hacer la rutina"{
+		assert.that(julian.puedeHacerRutina())
+	}
+	
+	test "julian post rutina, dolor 29.3"{
+		julian.hacerRutina()
+		assert.equals(julian.dolor(), 29.3)
+	}
+	
+	test "julian post rutina, fortaleza 62"{
+		julian.hacerRutina()
+		assert.equals(julian.fortaleza(), 62)
+	}
+		
+}
+
+
